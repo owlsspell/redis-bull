@@ -1,0 +1,77 @@
+#for git commit
+version: "3.5"
+services:
+  redis:
+    image: redis
+    container_name: redis
+    hostname: redis
+    ports: 
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./data:/code/data
+   
+  redis_commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: ghcr.io/joeferner/redis-commander:latest
+    restart: always
+    depends_on:
+      - redis
+      - mongo_db
+    environment:
+    - REDIS_HOSTS=local:redis:6379
+    ports:
+    - "8081:8081"
+    
+  mongo_db:
+    image: mongo:5.0
+    container_name: mongo_db
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/apps/mongo:/code/mongo_data
+    environment:
+      MONGO_USERNAME: admin1
+      MONGO_PASSWORD: S1cre4
+
+  server: 
+    container_name: backend-bull
+    image: node:16-alpine3.11
+    ports:
+      - "5000:5000"
+    working_dir: /code/back
+    volumes:
+      - ./backend:/code/back
+    depends_on:
+      - redis
+      - mongo_db
+      - redis_commander
+    command: npm run dev
+    environment:
+      REDIS_URL: redis:6379
+      # CHOKIDAR_USEPOLLING: 'true'
+      # CHOKIDAR_INTERVAL: 1000
+    restart: always
+
+  front:
+    image: node:16-alpine3.11
+    command: npm run dev
+    working_dir: /code/front
+    ports:
+      - "3000:3000"
+    container_name: front-end    
+    volumes:
+      - ./frontend:/code/front
+    depends_on:
+      - server
+      - redis
+      - redis_commander
+      - mongo_db
+    restart: always
+
+
+
+volumes:
+  database-data: 
