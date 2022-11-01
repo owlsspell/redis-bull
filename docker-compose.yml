@@ -1,3 +1,4 @@
+#tet
 version: "3.5"
 services:
   redis:
