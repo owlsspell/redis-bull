@@ -32,7 +32,7 @@ function App() {
       }
     }
     chosenColumns.sort((prev, next) => prev.sort > next.sort)
-    console.log( ' chosenColumns.sort((prev, next) => prev.sort > next.sort)',chosenColumns.sort((prev, next) => prev.sort > next.sort));
+    console.log(' chosenColumns.sort((prev, next) => prev.sort > next.sort)', chosenColumns.sort((prev, next) => prev.sort > next.sort));
     return chosenColumns
   }
 
@@ -87,7 +87,7 @@ function App() {
           <ButtonMain text="Download XLS" onClick={getXml} />
         </div>
       </div>
-      <Table />
+      {/* <Table /> */}
     </div>
   );
 }

@@ -6,14 +6,16 @@ const createPdf = (data, fields) => {
 
   let doc = new PDFDocument({ margin: 30, size: 'A4' });
   // save document
+
   doc.pipe(fs.createWriteStream("./document.pdf"));
+
   // doc.pipe(res); 
 
   let labels = []
-   
+
 
   fields.forEach(item => {
-    labels.push({ label: item, property: item, renderer: null, headerColor: 'green', align: 'center', width:(item==="email"?150: 60)})
+    labels.push({ label: item, property: item, renderer: null, headerColor: 'green', align: 'center', width: (item === "email" ? 150 : 60) })
   })
 
   let totalSum = totalOrdersSum(data);
@@ -26,7 +28,7 @@ const createPdf = (data, fields) => {
       headers: labels,
       datas: [...data, { totalSum: totalSum }],
     };
-    
+
     await doc.table(table, {
       divider: {
         header: { disabled: false, width: 2, opacity: 1 },
@@ -56,10 +58,12 @@ const createPdf = (data, fields) => {
             .stroke();
         }
 
-        
+
       },
     });
-   
+    // doc.pipe(res);
+    // return doc
+
     return doc.end();
   })();
 }
