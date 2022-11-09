@@ -20,10 +20,9 @@ export default function SelectMenu() {
       dispatch(addFieldFilter({ selectedColumn, selectedValue }))
     }
   }
-console.log('selectedColumn,',selectedColumn);
   useEffect(() => {
-    if(selectedColumn.value){
-    dispatch(fetchValues(selectedColumn.value))
+    if (selectedColumn.value) {
+      dispatch(fetchValues(selectedColumn.value))
     }
   }, [dispatch, selectedColumn])
 
@@ -35,8 +34,8 @@ console.log('selectedColumn,',selectedColumn);
 
 
   return (
-    <div className="flex items-center flex-col"><h4 className="text-white text-2xl font-bold my-5">Add filter for column data (if you want)</h4>
-      <div className="flex items-center">
+    <div className="flex items-center flex-col"><h4 className="text-teal-100 text-2xl font-bold mb-5 mt-8">Add filter for column data (if you want)</h4>
+      <div className="flex items-center flex-col md:flex-row">
 
         <Options fields={fields} selected={selectedColumn} setSelected={setSelectedColumn} query={queryColumn} setQuery={setQueryColumn} />
 

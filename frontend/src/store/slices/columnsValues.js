@@ -5,9 +5,8 @@ import { basePath } from '../../constants/all'
 export const fetchValues = createAsyncThunk(
   'columnsValues/fetchValues',
   async (selected, { rejectWithValue }) => {
-    console.log('selected,',selected);
     try {
-      const response = await axios.get(`${basePath}/get-colums-values`,{params:{selected}})
+      const response = await axios.get(`${basePath}/get-colums-values`, { params: { selected } })
       return response.data.values
     } catch (error) {
       console.log(error);
@@ -16,8 +15,6 @@ export const fetchValues = createAsyncThunk(
   }
 )
 
-// const [selectedColumn, setSelectedColumn] = useState(false)
-// const [selectedValue, setSelectedValue] = useState(false)
 const columnsValuesSlice = createSlice({
   name: 'columnsValues',
   initialState: {
@@ -26,7 +23,7 @@ const columnsValuesSlice = createSlice({
     error: false,
   },
   reducers: {
-  
+
   },
   extraReducers: {
     [fetchValues.pending]: (state) => { state.loading = true; state.error = false },
@@ -35,6 +32,6 @@ const columnsValuesSlice = createSlice({
   }
 })
 
-export const {  } = columnsValuesSlice.actions
+export const { } = columnsValuesSlice.actions
 export default columnsValuesSlice.reducer
 

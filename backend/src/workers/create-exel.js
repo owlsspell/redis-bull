@@ -20,7 +20,7 @@ const createExel = (data, fields) => {
   const cellRef = XLSX.utils.encode_cell({ c: noCols, r: noRows + 1 });
 
   let totalSum = totalOrdersSum(data);
-  
+
   XLSX.utils.book_append_sheet(workbook, worksheet, "Statistics");
   XLSX.utils.sheet_add_aoa(worksheet, [fields], { origin: "A1" });
   XLSX.utils.sheet_add_aoa(worksheet, [[totalSum]], { origin: cellRef });
@@ -43,7 +43,7 @@ const createExel = (data, fields) => {
 
   worksheet["!cols"] = widthCol;
 
-  XLSX.writeFile(workbook, "Statistics.xlsx");
+  XLSX.writeFile(workbook, "./uploads/Statistics.xlsx");
 }
 
 module.exports = { createExel }

@@ -8,5 +8,17 @@ const orderSchema = new mongoose.Schema({
   department: String,
   totalSum: String,
 })
+const reportSchema = new mongoose.Schema({
+  files: [{
+    documentType: [String],
+    fields: [String],
+    filters: [String]
+  }],
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'orderSchema'
+  },
 
-module.exports = {orderSchema}
+})
+
+module.exports = { orderSchema, reportSchema }

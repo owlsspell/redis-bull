@@ -6,7 +6,7 @@ export default function ResultQuery() {
   return (<div>
     <div className="flex items-baseline">
       {chosenFilters.length > 0 ?
-        <h4 className="text-white text-2xl font-bold mt-10 mr-5 ">You chose fields:  </h4>
+        <h4 className="text-white text-2xl font-bold mt-10 mr-5 ">Filter fields:  </h4>
         : ""}
       {/* <span className="text-white text-xl font-bold mt-10 italic">
         {chosenColumns.map((column, index) => {
@@ -17,8 +17,8 @@ export default function ResultQuery() {
     {chosenFilters.length > 0 &&
       <div className="flex items-baseline">
         <div className="flex items-baseline w-full">
-          <span className="text-2xl font-bold mt-10 mr-5">Filter: </span>
-          <span className="flex text-xl font-bold mt-10 italic">
+          {/* <span className="text-teal-200 text-xl font-bold mr-5">Filter: </span> */}
+          <span className="text-teal-200 flex text-xl font-bold italic">
             {chosenFilters.map((field, index) => {
               console.log('field', field);
               return <div className="px-2 flex items-center" key={field.selectedColumn.value + "_" + field.selectedValue}>{field.selectedColumn.name}  <Arrow /> {field.selectedValue} {(index === chosenFilters.length - 1 ? "" : ", ")}</div>

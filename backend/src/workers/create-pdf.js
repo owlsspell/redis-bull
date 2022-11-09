@@ -7,7 +7,7 @@ const createPdf = (data, fields) => {
   let doc = new PDFDocument({ margin: 30, size: 'A4' });
   // save document
 
-  doc.pipe(fs.createWriteStream("./document.pdf"));
+  doc.pipe(fs.createWriteStream("./uploads/document.pdf"));
 
   // doc.pipe(res); 
 

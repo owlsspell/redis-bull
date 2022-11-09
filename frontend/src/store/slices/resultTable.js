@@ -11,9 +11,11 @@ export const fetchTableData = createAsyncThunk(
     // console.log('!!!!!!!!!!!!',checked);
     const filters = params.filters.map(item => (item))
 
-    const chosenColumns = params.chosenColumns.map(item => (item.value))
+    const chosenColumns = params.chosenColumns.sort((prev, next) => prev.sort - next.sort).map(item => (item.value))
+
     try {
-      const response = await axios.get(`${basePath}/get-result-table`, { params: { filters: JSON.stringify(filters), chosenColumns: chosenColumns.join(',') } })
+      // const response = await axios.get(`${basePath}/get-result-table`, { params: { filters: JSON.stringify(filters), chosenColumns: chosenColumns.join(',') } })
+      const response = await axios.get(`${basePath}/generate-data`, { params: { filters: JSON.stringify(filters), chosenColumns: chosenColumns.join(','), checkedOptions: params.checkedOptions } })
       return response.data
     } catch (error) {
       console.log(error);
@@ -59,8 +61,6 @@ export const downloadPDF = createAsyncThunk(
 export const downloadXML = createAsyncThunk(
   'table/downloadXML',
   async (params, { rejectWithValue }) => {
-    console.log('111111111111111', params);
-    console.log('111111111111111chosenColumns', params.chosenColumns);
     const filters = params.filters.map(item => (item))
 
     const chosenColumns = params.chosenColumns.sort((prev, next) => prev.sort - next.sort).map(item => (item.value))

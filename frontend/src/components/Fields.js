@@ -41,40 +41,42 @@ export default function Fields() {
   //   })
   // }, [])
 
-function addField(){
-  for (let key in checked){
-    if(checked[key]){
-      fields.filter((field) => field.value === key && dispatch(addColumns(field)) ) 
+  function addField() {
+    for (let key in checked) {
+      if (checked[key]) {
+        fields.filter((field) => field.value === key && dispatch(addColumns(field)))
+      }
     }
+    // fields.forEach((field) => {
+    //   setChecked({ ...checked, ...(checked[field.value] = false) })
+    // })
+    // dispatch(clearCheckedFields())
   }
-  // fields.forEach((field) => {
-  //   setChecked({ ...checked, ...(checked[field.value] = false) })
-  // })
-  // dispatch(clearCheckedFields())
-}
 
 
 
   return (
     <div>
       {/* <div class="grid grid-col-4 grid-flow-col gap-4 my-14"> */}
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3  gap-y-8 gap-x-6">
+      <div className="grid grid-cols-2 md:grid-cols-[1fr_auto_1fr]  gap-y-8 gap-x-6">
         {fields.map(field => {
-        
+
           return <button onClick={() => handleChange(field.value)
             // addField(field.name, field.value)
           } key={field.value}
-            className={"w-full rounded-2xl py-2 px-4 text-white text-xl font-bold hover:scale-110 duration-200 ease-in " + (checked[field.value]? "bg-teal-700 scale-110" :"bg-teal-600")}>
+            className={"w-full rounded-2xl py-2 px-4 text-white text-xl font-bold hover:scale-110 duration-200 ease-in " + (checked[field.value] ? "bg-teal-700 scale-110" : "bg-teal-600")}>
             {field.name}
-            <input type="checkbox" 
+            <input type="checkbox"
               checked={checked[field.value]}
               className="hidden"
+              value={field.name}
+              onChange={() => { }}
             />
           </button>
         }
         )}
 
-{/* <button  onClick={() => addField()}>On</button> */}
+        {/* <button  onClick={() => addField()}>On</button> */}
 
 
       </div>
