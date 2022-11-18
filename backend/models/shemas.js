@@ -12,7 +12,10 @@ const reportSchema = new mongoose.Schema({
   files: [{
     documentType: [String],
     fields: [String],
-    filters: [String]
+    filters: [{
+      field: String,
+      value: String,
+    }]
   }],
   userId: {
     type: mongoose.Schema.Types.ObjectId,

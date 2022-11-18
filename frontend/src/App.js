@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
+import './css/loader.css';
 import Fields from './components/Fields';
 import OptionsList from './components/OptionsList';
 import Preview from './components/Preview';
@@ -11,16 +12,23 @@ import ButtonMain from './components/utils/ButtonMain';
 import fields from './constants/fields';
 import { addColumns } from './store/slices/chosenFields';
 import { downloadPDF, downloadXML, fetchTableData } from './store/slices/resultTable';
+import { basePath } from './constants/all';
 
 function App() {
   const dispatch = useDispatch()
+  const [isLoading, setLoading] = useState(false)
+  const [links, showLinks] = useState({
+    pdf: false,
+    table: false,
+    xml: false,
+  });
   // const chosenColumns = useSelector(state => state.chosenColumns.columns)
   const chosenFilters = useSelector(state => state.chosenColumns.filter)
 
   const tableData = useSelector(state => state.tableData.tableData)
-
+  console.log('chosenFilters,', chosenFilters);
   const filters = chosenFilters.map(filter => ({ [filter.selectedColumn.value]: filter.selectedValue }))
-
+  console.log('filters', filters);
   const checked = useSelector(state => state.chosenColumns.checkedFields)
   const checkedOptions = useSelector(state => state.userWant.checkedOptions)
 
@@ -39,7 +47,7 @@ function App() {
     return chosenColumns
   }
 
-  function addField() {
+  function handleClick() {
     // let chosenColumns = []
     // for (let key in checked) {
     //   if (checked[key]) {
@@ -48,9 +56,18 @@ function App() {
     //       && chosenColumns.push(field))
     //   }
     // }
+    setLoading(true)
     let chosenColumns = getColumns()
     console.log('chosenColumns', chosenColumns);
     dispatch(fetchTableData({ filters, chosenColumns, checkedOptions }))
+      .then((res) => {
+        console.log('res', res);
+        setLoading(false)
+        if (res && res.payload.status === 'ok') {
+
+          showLinks(res.payload.result)
+        }
+      })
     // fields.forEach((field) => {
     //   setChecked({ ...checked, ...(checked[field.value] = false) })
     // })
@@ -69,7 +86,7 @@ function App() {
     dispatch(downloadXML({ filters, chosenColumns }))
   }
 
-
+  console.log('links', links);
 
   return (
     <>
@@ -84,16 +101,32 @@ function App() {
           <SelectMenu />
           <ResultQuery />
 
+          {isLoading ? <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> :
+            <><div>
+              <div className="flex justify-around	pt-8 space-x-6 ">
+                <OptionsList />
+                {links.pdf || links.xml ?
+                  <div className='text-white flex flex-col'>
+                    {links.pdf ?
+                      <a className='hover:underline' href={basePath + '/document.pdf'} key="Download pdf" download>Download pdf</a> : ""}
+                    {links.xml ?
+                      <a className='hover:underline' href={basePath + '/statistics.xlsx'} key="Download xlsm" download>Download xlsm</a> : ""}
+                  </div>
+                  : ""}
+              </div>
+              <div className="flex justify-center	py-10">
 
-          <OptionsList />
-          <div className="flex justify-center	py-10">
+                <ButtonMain text="Get table" onClick={handleClick} />
+              </div>
+            </div>
 
-            <ButtonMain text="Get table" onClick={addField} />
-          </div>
+            </>
+          }
+
         </div>
 
       </div>
-      <Table />
+      {!isLoading && <Table />}
     </>
   );
 }

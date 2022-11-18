@@ -26,8 +26,7 @@ export const fetchTableData = createAsyncThunk(
 export const downloadPDF = createAsyncThunk(
   'table/downloadPDF',
   async (params, { rejectWithValue }) => {
-    console.log('111111111111111', params);
-    console.log('111111111111111chosenColumns', params.chosenColumns);
+
     // const [filters,checked] =  params
     // console.log('!!!!!!!!!!!!',checked);
     const filters = params.filters.map(item => (item))

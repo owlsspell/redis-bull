@@ -30,3 +30,16 @@ const chosenColumnsSlice = createSlice({
 export const { addColumns, addFieldFilter, setCheckedFields, clearCheckedFields } = chosenColumnsSlice.actions
 export default chosenColumnsSlice.reducer
 
+
+
+
+// let data = [
+//   {id: 1, serial: "Blood.Drive", season: 1},
+//   {id: 2, serial: "Blood.Drive", season: 1},
+//   {id: 3, serial: "Foo.Bar", season: 1},
+//   {id: 4, serial: "HelloWorld", season: 1},
+//  ]
+ 
+//  let unique = data.reduce((p,c)=>p.add(c.serial), new Set())
+ 
+//  console.log(unique)

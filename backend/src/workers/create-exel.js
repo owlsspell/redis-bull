@@ -2,7 +2,7 @@ const fs = require("fs");
 const XLSX = require("xlsx");
 const { totalOrdersSum } = require("../common/totalSum");
 
-const createExel = (data, fields) => {
+const createExel = async (data, fields) => {
   // console.log('data', data);
 
   const rows = data.map(row => {
@@ -43,7 +43,7 @@ const createExel = (data, fields) => {
 
   worksheet["!cols"] = widthCol;
 
-  XLSX.writeFile(workbook, "./uploads/Statistics.xlsx");
+  await XLSX.writeFile(workbook, "./uploads/statistics.xlsx");
 }
 
 module.exports = { createExel }

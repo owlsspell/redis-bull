@@ -35,6 +35,10 @@ queuePdf.on('completed', (job, result) => {
 
   // });
 })
+// queue.on('completed', (job, result) => {
+//   console.log(`Job ${job.name} completed with result ${result.result}`);
+//   // app.use("/generate-data", async function (req, res, next) {
+// })
 queueExel.on('completed', (job, result) => {
   console.log(`Job completed with result ${result.result}`);
 })
@@ -47,7 +51,7 @@ queueExel.on('error', (job, result) => {
 })
 
 const sendReportToPdf = async ({ chosenColumns, filters }) => {
-  await queue.add('pdf-process', { fields: chosenColumns.split(','), filter: JSON.parse(filters) }, { attempts: 2, delay: 5000 })
+  await queue.add('pdf-process', { fields: chosenColumns.split(','), filter: JSON.parse(filters) }, { attempts: 2 })
   // await queuePdf.add({ fields: chosenColumns.split(','), filter: JSON.parse(filters) }, { attempts: 2 })
 }
 const sendReportToExel = async ({ chosenColumns, filters }) => {
@@ -57,4 +61,4 @@ const sendReportToExel = async ({ chosenColumns, filters }) => {
   // await queueExel.add({ fields: chosenColumns.split(','), filter: JSON.parse(filters) }, { attempts: 2 });
 }
 
-module.exports = { sendReportToPdf, sendReportToExel, router }
+module.exports = { sendReportToPdf, sendReportToExel, router, queue }

@@ -6,7 +6,7 @@ const userWantListSlice = createSlice({
     checkedOptions: {
       pdf: false,
       xml: false,
-      table: false,
+      table: true,
     }
   },
   reducers: {
