@@ -3,7 +3,6 @@ const XLSX = require("xlsx");
 const { totalOrdersSum } = require("../common/totalSum");
 
 const createExel = async (data, fields) => {
-  // console.log('data', data);
 
   const rows = data.map(row => {
     let filtered = fields.map(field => ({ [field]: row[field] }))

@@ -61,8 +61,6 @@ const createPdf = (data, fields) => {
 
       },
     });
-    // doc.pipe(res);
-    // return doc
 
     return doc.end();
   })();

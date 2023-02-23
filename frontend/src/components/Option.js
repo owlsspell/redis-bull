@@ -4,8 +4,6 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 
 export default function Options({ fields, selected, setSelected, query, setQuery }) {
-  console.log('selected', selected);
-
 
   const filteredFields =
     query === ''

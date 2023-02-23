@@ -18,11 +18,11 @@ export default function ResultQuery() {
       <div className="flex items-baseline">
         <div className="flex items-baseline w-full">
           {/* <span className="text-teal-200 text-xl font-bold mr-5">Filter: </span> */}
-          <span className="text-teal-200 flex text-xl font-bold italic">
+          <div className="text-teal-200 flex text-xl font-bold italic flex-col">
             {chosenFilters.map((field, index) => {
               console.log('field', field);
               return <div className="px-2 flex items-center" key={field.selectedColumn.value + "_" + field.selectedValue}>{field.selectedColumn.name}  <Arrow /> {field.selectedValue} {(index === chosenFilters.length - 1 ? "" : ", ")}</div>
-            })}</span></div>
+            })}</div></div>
       </div>}
   </div >
   )

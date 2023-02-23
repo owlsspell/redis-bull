@@ -9,37 +9,11 @@ export default function Fields() {
   const dispatch = useDispatch()
   const checked = useSelector(state => state.chosenColumns.checkedFields)
 
-  console.log('fields', fields);
-  console.log('checkedFields', checked);
-
-  // const addField = (name, value) => {
-  //   if (!chosenColumns.some(item => item.value === value)) {
-  //     // if (!chosenColumns.includes({name,value})) {
-  //     dispatch(addColumns({ name, value }))
-  //   }
-  // }
-
-  // // useMemo(() => {
-  //   fields.forEach(field => {
-  //     // field.value
-  //     // console.log()
-  //   });
-
-  // }, [chosenColumns])
-
-  // const [checked, setChecked] = useState({});
-  // console.log('checked', checked);
   const handleChange = (field) => {
     dispatch(setCheckedFields(field))
     // setChecked({...checked, [field] : !checked[field] });
-
   };
-  // useEffect(() => {
-  //   fields.forEach((field) => {
-  //     // setChecked({ ...checked, ...(checked[field.value] = false) })
-  //     // dispatch(setCheckedFields(field))
-  //   })
-  // }, [])
+
 
   function addField() {
     for (let key in checked) {
@@ -47,10 +21,6 @@ export default function Fields() {
         fields.filter((field) => field.value === key && dispatch(addColumns(field)))
       }
     }
-    // fields.forEach((field) => {
-    //   setChecked({ ...checked, ...(checked[field.value] = false) })
-    // })
-    // dispatch(clearCheckedFields())
   }
 
 
@@ -75,12 +45,6 @@ export default function Fields() {
           </button>
         }
         )}
-
-        {/* <button  onClick={() => addField()}>On</button> */}
-
-
       </div>
-
-
     </div>)
 }

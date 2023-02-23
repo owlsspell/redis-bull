@@ -6,9 +6,6 @@ import createLink from '../../functions/getBlob';
 export const fetchTableData = createAsyncThunk(
   'table/fetchTableData',
   async (params, { rejectWithValue }) => {
-    console.log('111111111111111', params);
-    // const [filters,checked] =  params
-    // console.log('!!!!!!!!!!!!',checked);
     const filters = params.filters.map(item => (item))
 
     const chosenColumns = params.chosenColumns.sort((prev, next) => prev.sort - next.sort).map(item => (item.value))
@@ -27,8 +24,6 @@ export const downloadPDF = createAsyncThunk(
   'table/downloadPDF',
   async (params, { rejectWithValue }) => {
 
-    // const [filters,checked] =  params
-    // console.log('!!!!!!!!!!!!',checked);
     const filters = params.filters.map(item => (item))
 
     const chosenColumns = params.chosenColumns.sort((prev, next) => prev.sort - next.sort).map(item => (item.value))
@@ -37,17 +32,7 @@ export const downloadPDF = createAsyncThunk(
       const response = await fetch(`${basePath}/pdf?` +
         new URLSearchParams({ filters: JSON.stringify(filters), chosenColumns: chosenColumns.join(',') }))
       // const response = await axios.get(`${basePath}/pdf`, { params: { filters: JSON.stringify(filters), chosenColumns: chosenColumns.join(',') } })
-      console.log('response', response);
       if (response.status === 200) {
-        // const blob = await response.blob()
-        // console.log('blob,', blob);
-        // const downloadUrl = window.URL.createObjectURL((blob))
-        // const link = document.createElement('a')
-        // link.href = downloadUrl;
-        // link.setAttribute('download', 'table.pdf')
-        // document.body.appendChild(link)
-        // link.click()
-        // link.remove()
         createLink(response)
       }
 

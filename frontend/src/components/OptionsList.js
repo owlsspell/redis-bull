@@ -5,7 +5,7 @@ export default function OptionsList() {
     const dispatch = useDispatch()
 
     const userGet = useSelector(state => state.userWant.checkedOptions)
-    console.log('userGet,', userGet);
+
     const handleChange = (field) => {
         dispatch(setUserWant(field))
     };
@@ -19,6 +19,3 @@ export default function OptionsList() {
 
 
 }
-
-{/* <ButtonMain text="Download pdf" onClick={getPdf} />
-    <ButtonMain text="Download XLS" onClick={getXml} /> */}
